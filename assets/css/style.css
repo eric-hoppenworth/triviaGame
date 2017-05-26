@@ -27,19 +27,19 @@ html, body{
 #buffyPic{
 	position: absolute;
 	/*will likely want the width set specifically, and the height to be auto*/
-	height: 30%;
-	width:15%;
+	height: 40%;
+	/*width:15%;*/
 	left: 5%;
-	top:40%;
-	background: blue;
+	top:30%;
+	/*background: blue;*/
 }
 #quizDemonPic{
 	position: absolute;
 	/*will likely want the width set specifically, and the height to be auto*/
-	height: 30%;
+	height: 40%;
 	width:15%;
 	left: 80%;
-	top:40%;
+	top:30%;
 	background: red;
 }
 #timer{
