@@ -16,7 +16,12 @@ html, body{
 
 }
 #intro h1{
+	position: absolute;
+	top:0;
+	height: 20%;
 	font-size: 1000%;
+	left:50%;
+	transform: translate(-50%,0);
 }
 #intro img{
 	float: right;
@@ -25,6 +30,11 @@ html, body{
 }
 #intro ul{
 	margin-top: 10%;
+	top: 20%;
+	position: absolute;
+	height: 50%;
+	left:50%;
+	transform: translate(-50%,0);
 }
 #intro li{
 	line-height: 200%;
@@ -32,8 +42,27 @@ html, body{
 
 }
 #intro button{
+	top:70%;
+	position: absolute;
 	height: 10%;
 	width: 20%;
+}
+#introHolder{
+	position: absolute;
+	height: 20%;
+	width:50%;
+	left:50%;
+	transform: translate(-50%,0);
+	top:80%;
+	text-align: center;
+
+
+
+}
+#introHolder img{
+	height: 100%;
+	float: none;
+
 }
 
 
