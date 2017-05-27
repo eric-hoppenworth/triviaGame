@@ -3,6 +3,42 @@ html, body{
 	width:100%;
 	background: lightblue;
 }
+/*intro elements*/
+#intro{
+	position: fixed;
+	top:0;
+	left:0;
+	height: 100%;
+	width: 100%;
+	background: lightblue;
+	z-index: 999;
+	text-align: center;
+
+}
+#intro h1{
+	font-size: 1000%;
+}
+#intro img{
+	float: right;
+	margin-right: 2%;
+	
+}
+#intro ul{
+	margin-top: 10%;
+}
+#intro li{
+	line-height: 200%;
+	font-size: 100%;
+
+}
+#intro button{
+	height: 10%;
+	width: 20%;
+}
+
+
+
+/*game elements*/
 #marquee{
 	position: absolute;
 	width: 60%;
