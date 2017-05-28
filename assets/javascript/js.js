@@ -109,7 +109,8 @@ $(document).ready(function(){
 	var friendArray = ["cordelia","xander","oz","willow","giles"];
 	myGame = new game();
 	myGame.createBulbs();
-
+	$.mobile.orientationChangeEnabled = false;
+	
 
 	$("#friendPic").attr("src","assets/images/" + friendArray[currentFriend] + ".png");
 

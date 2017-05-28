@@ -85,7 +85,7 @@ html, body{
 	font-size: 24px;
 }
 #marquee ul{
-	text-align: none;
+	text-align: left;
 }
 #marquee li {
 	font-size: 16px;
@@ -137,7 +137,9 @@ html, body{
 	#smallGiles, #smallGiles img{
 		height: 200px;
 	}
-
+	#marquee{
+		height: 50vw;
+	}
 }
 /*portrait iPad*/
 @media (max-width: 1023px) and (min-width: 768px){
@@ -165,6 +167,7 @@ html, body{
 	#introHolder img{
 		height: 200px;
 	}
+	
 
 	#marquee{
 		border: 1px solid black;
