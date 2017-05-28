@@ -4,11 +4,13 @@ html, body{
 	background: lightblue;
 }
 
-.container-fluid{
+.container{
 	text-align: center;
+	widows: 100vw;
 }
 .row{
 	text-align: center;
+	margin:0;
 }
 
 #intro{
@@ -20,8 +22,10 @@ html, body{
 #intro h1{
 	font-size: 100px;
 	line-height: 100px;
-
 }
+#smallGiles, #smallGiles img{
+		height: 250px;
+	}
 #intro ul{
 	padding: 15px;
 	font-size: 24px;
@@ -32,95 +36,75 @@ html, body{
 	width: 50%;
 	font-size: 28px;
 }
+#introHolder{
+	padding: 15px 0;
+}
 #introHolder img{
 	height: 100px;
-}
-
-
-#gameContent{
-	display: none;
-}
-
-/*game elements*/
-#marquee{
-	position: absolute;
-	width: 60%;
-	left:20%;
-	padding: 2em;
-	background: lightpink;
-	border:1px solid black;
-	top: 5%;
-	box-sizing: border-box;
-	text-align: center;
-	height: 50%;
-	overflow: auto;
-}
-#marquee h1 {
-	font-size: 3em;
-	margin-bottom: 1em;
-}
-#marquee li {
-	font-size: 1em;
-	line-height: 2em;
-}
-#buffyPic{
-	position: absolute;
-	/*will likely want the width set specifically, and the height to be auto*/
-	height: 40%;
-	/*width:15%;*/
-	left: 5%;
-	top:30%;
-	/*background: blue;*/
-}
-#quizDemonPic{
-	position: absolute;
-	/*will likely want the width set specifically, and the height to be auto*/
-	height: 40%;
-	/*width:15%;*/
-	left: 80%;
-	top:30%;
-	/*background: red;*/
-}
-#foot{
-	position: absolute;
-	height: 25%;
-	width: 100%;
-	left: 0;
-	box-sizing: border-box;
-	top:75%;
-	border: 1px solid black;
-	background: lightyellow;
-}
-#timer{
-	position: absolute;
-	width: 90%;
-	height: 90%;
-	top: 5%;
-	left:5%;
-}
-.timerPic{
-	position: absolute;
-	height: 100%;
-	/*will likely want the width to be auto*/
-	/*width: 10%;*/
-	box-sizing: border-box;
-
-}
-#demonPic{
-	right:90%;
-	margin-left: 0.5em;
-	z-index: 1;
-	/*transform: translate(0,0);*/
-
-}
-#friendPic{
-	right:0;
-	margin-right: .5em;
-	z-index: 0;
 }
 #bigGiles{
 	display: none;
 }
+
+
+#intro{
+	display:none;
+}
+
+#gameContent{
+	display: unset;
+}
+
+/*
+/*game elements*/
+
+#marquee{
+	border: 1px solid black;
+	background: lightpink;
+	height: 50vh;
+}
+.bulbRow .col-xs-1{
+	padding: 0;
+}
+#marquee h1 {
+	font-size: 30px;
+}
+#marquee li {
+	font-size: 20px;
+	line-height: 30px;
+}
+#buffyPic{
+	position: relative;
+	height: 28vh;
+	left:-15vw;
+	padding:1vh 0;
+}
+#quizDemonPic{
+	position: relative;
+	height: 28vh;
+	right:-15vw;
+	padding:1vh 0;
+}
+
+#timer{
+	border:1px solid black;
+	background: lightyellow;
+	padding: 1vh;
+	height: 17vh;
+}
+.timerPic{
+	height: 15vh;
+	position: absolute;
+}
+#demonPic{
+	left: 0vw;
+	z-index: 2;
+}
+#friendPic{
+	left: 85vw;
+	z-index: 1;
+}
+
 
 
 
@@ -131,16 +115,42 @@ html, body{
 
 /*landscape phone*/
 @media (max-width: 767px) and (min-width: 640px){
+	/*Giles needs to be smaller on the intro screen*/
+	#smallGiles, #smallGiles img{
+		height: 200px;
+	}
+
 }
 /*portrait iPad*/
 @media (max-width: 1023px) and (min-width: 768px){
 }
 /*desktop and lansdcape iPad*/
-@media (min-width: 1024px){
+@media (min-width: 1023px){
 	#bigGiles{
 		display: unset;
 	}
 	#smallGiles{
 		display: none;
+	}
+
+
+	#intro h1{
+		font-size: 50px;
+	}
+	#intro ul{
+		font-size: 16px;
+	}
+	#intro button{
+		height: 50px;
+		font-size: 25px;
+	}
+	#introHolder img{
+		height: 200px;
+	}
+
+	#marquee{
+		border: 1px solid black;
+		background: lightpink;
+		height: 50vh;
 	}
 }
