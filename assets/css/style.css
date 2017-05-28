@@ -6,11 +6,12 @@ html, body{
 
 .container{
 	text-align: center;
-	widows: 100vw;
+	width: 100vw;
 }
 .row{
 	text-align: center;
 	margin:0;
+
 }
 
 #intro{
@@ -61,17 +62,34 @@ html, body{
 #marquee{
 	border: 1px solid black;
 	background: lightpink;
-	height: 50vh;
+	height: 100vw;
+	z-index: 1;
+	padding: 8.3333vw;
+	overflow: auto;
 }
-.bulbRow .col-xs-1{
+#bulbs{
+	position: absolute;
+	left:0;
+	top: 0;
+	z-index: 2;
+	margin: 0;
 	padding: 0;
 }
+
+#bulbs *{
+	margin: 0;
+	padding: 0;
+}
+
 #marquee h1 {
-	font-size: 30px;
+	font-size: 24px;
+}
+#marquee ul{
+	text-align: none;
 }
 #marquee li {
-	font-size: 20px;
-	line-height: 30px;
+	font-size: 16px;
+	line-height: 24px;
 }
 #buffyPic{
 	position: relative;
