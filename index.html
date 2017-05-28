@@ -2,6 +2,7 @@
 <html lang = "en-us">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrapGrid.min.css">
@@ -10,24 +11,29 @@
 </head>
 <body>
 	<!-- intro -->
-	<div id = "intro" class = "container">
+	<div id = "intro" class = "container-fluid">
 		<div class="row tallRow">
-			<div class = "col-xs-10 container">
+			<div class = "col-xs-12 col-md-10 container-fluid">
 				<div class = "row">
 					<h1>Buffy!</h1>
 				</div>
-			
+				<div id="smallGiles" class = "row">
+					<img src="assets/images/giles.png">
+				</div>
 				<div class = "row">
 					<ul>
 						<li>
 							You've been captued by a Quiz Demon!
 						</li>
+						<br>
 						<li>
 							It's a particularly nasty breed of demon.  He has the ability to trap you with a mystical spell and force you to answer mundane questions.
 						</li>
+						<br>
 						<li>
 							But hurry, Buffy!  While he is holding you in his grasp, he is sending his henchmen after your friends.
 						</li>
+						<br>
 						<li>
 							I'll do my best to hold them off, but I'm afraid you will have to answer his questions correctly if we are to stand a chance.
 						</li>
@@ -64,37 +70,38 @@
 				</div>
 			</div>
 			
-			<div class="col-xs-2">
+			<div id = "bigGiles" class="col-md-2">
 				<img src="assets/images/giles.png">	
 			</div>
 		</div>
 	</div>
 
 	<!-- actual Game -->
-	<div id = "marquee">
-		<h1 id = "questionText"> Is this a question?</h1>
-		<div id = "answersHolder">
-			<ul>
-				<li class = "option">Yes</li>
-				<li class = "option">No</li>
-				<li class = "option">There is no way to tell</li>
-				<li class = "option">Nothing is a question</li>
-			</ul>
+	<div id = "gameContent" class = "container">
+		<div id = "marquee">
+			<h1 id = "questionText"> Is this a question?</h1>
+			<div id = "answersHolder">
+				<ul>
+					<li class = "option">Yes</li>
+					<li class = "option">No</li>
+					<li class = "option">There is no way to tell</li>
+					<li class = "option">Nothing is a question</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-	<img id = "buffyPic" src = "assets/images/buffy.png" alt = "">
-	<img id = "quizDemonPic" src="assets/images/quizDemon.png" alt="">
+		<img id = "buffyPic" src = "assets/images/buffy.png" alt = "">
+		<img id = "quizDemonPic" src="assets/images/quizDemon.png" alt="">
 
-	<div id = "foot">
-		<div id = "timer">
-			<img id = "demonPic" class = "timerPic" src="assets/images/henchman.png" alt ="">
-			<img id="friendPic" class = "timerPic" src="assets/images/giles.png" alt="">
+		<div id = "foot">
+			<div id = "timer">
+				<img id = "demonPic" class = "timerPic" src="assets/images/henchman.png" alt ="">
+				<img id="friendPic" class = "timerPic" src="assets/images/giles.png" alt="">
+			</div>
 		</div>
-	</div>
-		
+	</div>	
 	<script type="text/javascript" src = "assets/javascript/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src = "assets/javascript/questionLibrary.js"></script>
 	<script type="text/javascript" src = "assets/javascript/js.js"></script>
-
+	
 </body>
 </html>

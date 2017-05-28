@@ -1,43 +1,46 @@
 html, body{
-	height: 100%;
-	width:100%;
+	padding: 0;
+	margin: 0;
 	background: lightblue;
+}
+
+.container-fluid{
+	text-align: center;
+}
+.row{
+	text-align: center;
 }
 
 #intro{
-	position: fixed;
-	height: 100%;
-	width: 100%;
+	position: absolute;
 	background: lightblue;
 	z-index: 999;
 	text-align: center;
+}
+#intro h1{
+	font-size: 100px;
+	line-height: 100px;
 
 }
+#intro ul{
+	padding: 15px;
+	font-size: 24px;
 
+}
 #intro button{
-	height: 100%;
-	width: 50%
+	height: 100px;
+	width: 50%;
+	font-size: 28px;
 }
-
-.container{
-	height: 100%;
-}
-
-.row {
-	display: inline-block;
-	height: 20%;
-	width: 100%;
-}
-.tallRow{
-	height: 100%;
-}
-
 #introHolder img{
-	height: 100%;
+	height: 100px;
 }
-#introHolder *{
-	height:100%;
+
+
+#gameContent{
+	display: none;
 }
+
 /*game elements*/
 #marquee{
 	position: absolute;
@@ -114,4 +117,30 @@ html, body{
 	right:0;
 	margin-right: .5em;
 	z-index: 0;
+}
+#bigGiles{
+	display: none;
+}
+
+
+
+/*Portrait phone*/
+@media (max-width: 639px) and (min-width: 1px){
+	/*regular styles should be applied*/
+}
+
+/*landscape phone*/
+@media (max-width: 767px) and (min-width: 640px){
+}
+/*portrait iPad*/
+@media (max-width: 1023px) and (min-width: 768px){
+}
+/*desktop and lansdcape iPad*/
+@media (min-width: 1024px){
+	#bigGiles{
+		display: unset;
+	}
+	#smallGiles{
+		display: none;
+	}
 }
