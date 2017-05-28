@@ -4,35 +4,70 @@
 	<meta charset="utf-8">
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrapGrid.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
 <body>
 	<!-- intro -->
-	<div id = "intro">
-		<h1>Buffy!</h1>
-		<img src="assets/images/giles.png">
-		<ul>
-			<li>
-				You've been captued by a Quiz Demon!
-			</li>
-			<li>
-				It's a particularly nasty breed of demon.  He has the ability to trap you with a mystical spell and force you to answer mundane questions.
-			</li>
-			<li>
-				But hurry, Buffy!  While he is holding you in his grasp, he is sending his henchmen after your friends.
-			</li>
-			<li>
-				I'll do my best to hold them off, but I'm afraid you will have to answer his questions correctly if we are to stand a chance.
-			</li>
-		</ul>
-		<button id = "startGame">Let's Go!</button>
-		<div id = "introHolder">
-			<img src="assets/images/cordelia.png" alt= "">
-			<img src="assets/images/xander.png" alt= "">
-			<img src="assets/images/willow.png" alt= "">
-			<img src="assets/images/oz.png" alt= "">
-		</div>	
+	<div id = "intro" class = "container">
+		<div class="row tallRow">
+			<div class = "col-xs-10 container">
+				<div class = "row">
+					<h1>Buffy!</h1>
+				</div>
+			
+				<div class = "row">
+					<ul>
+						<li>
+							You've been captued by a Quiz Demon!
+						</li>
+						<li>
+							It's a particularly nasty breed of demon.  He has the ability to trap you with a mystical spell and force you to answer mundane questions.
+						</li>
+						<li>
+							But hurry, Buffy!  While he is holding you in his grasp, he is sending his henchmen after your friends.
+						</li>
+						<li>
+							I'll do my best to hold them off, but I'm afraid you will have to answer his questions correctly if we are to stand a chance.
+						</li>
+					</ul>
+				</div>
+
+				<div class = "row">
+					<button id = "startGame">Let's Go!</button>	
+				</div>
+				
+				<div id = "introHolder" class = "row">
+					<div class="col-xs-2">
+						
+					</div>
+					<div class="col-xs-2">
+						<img src="assets/images/cordelia.png" alt= "">
+					</div>
+
+					<div class="col-xs-2">
+						<img src="assets/images/xander.png" alt= "">
+					</div>
+					<div class="col-xs-2">
+						<img src="assets/images/willow.png" alt= "">
+					</div>
+					<div class="col-xs-2">
+						<img src="assets/images/oz.png" alt= "">
+					</div>
+					<div class="col-xs-2">
+						
+					</div>
+				</div>
+				<div class="row">
+					
+				</div>
+			</div>
+			
+			<div class="col-xs-2">
+				<img src="assets/images/giles.png">	
+			</div>
+		</div>
 	</div>
 
 	<!-- actual Game -->
