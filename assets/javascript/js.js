@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 		this.createBulbs= function(){
 
-			var marqueeHeight = parseInt($("#bigMarquee").css("height"));
+			var marqueeHeight = parseInt($("#marquee").css("height"));
 			var singleBulbHeight = parseFloat($(".col-xs-1").css("width"));
 			if (singleBulbHeight> 50){
 				singleBulbHeight = 50;
@@ -63,7 +63,9 @@ $(document).ready(function(){
 			//var bulbsHeight = parseInt($("#bulbs").css("height"));
 
 			var counter = 0;
-			var bulbCount = Math.floor(marqueeHeight/singleBulbHeight) -2;
+			var bulbCount = Math.ceil(marqueeHeight/singleBulbHeight);
+			$("#marquee").css("height",(singleBulbHeight*bulbCount)+"px");
+
 			
 			// if(bulbsHeight - singleBulbHeight < marqueeHeight && marqueeHeight < bulbsHeight + singleBulbHeight){
 			// 	//then I am within 1 bulb of being perfext, so don't adjust.
@@ -116,7 +118,7 @@ $(document).ready(function(){
 	var currentFriend = 0;
 	var friendArray = ["cordelia","xander","oz","willow","giles"];
 	myGame = new game();
-	myGame.createBulbs();
+	
 	//setTimeout(moveEnemy, 1000);
 
 
@@ -124,6 +126,7 @@ $(document).ready(function(){
 
 	$("#startGame").on("click",function () {
 		$("#intro").hide();
+		myGame.createBulbs();
 		//load random question
 		//start Timer
 		setTimeout(moveEnemy, 1000);

@@ -63,18 +63,17 @@ html, body{
 #bigMarquee{
 	border: 1px solid black;
 	background: lightpink;
-	height: 100vw;
 	padding: 0;
 }
 .bulb{
-	width:8.33333333vw;
+
 }
 #bigMarquee .col-xs-1{
 	padding: 0;
 }
 #marquee{
 	overflow: auto;
-	padding: 15px;
+	padding:0 15px;
 }
 #marquee h1 {
 	font-size: 24px;
@@ -133,8 +132,9 @@ html, body{
 		height: 200px;
 	}
 	#marquee{
-		height: 300px;
+		height: 180px;
 	}
+
 }
 /*portrait iPad*/
 @media (max-width: 1023px) and (min-width: 768px){
@@ -168,9 +168,7 @@ html, body{
 		height: 200px;
 	}
 
-	#bigMarquee{
-		height: 50vh;
-	}
+
 	#gameContent{
 		height: 100vh;
 	}
