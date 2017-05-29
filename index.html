@@ -78,47 +78,51 @@
 
 	<!-- actual Game -->
 	<div id = "gameContent" class = "">
-		<div class = "row">
-			<div id ="bulbs" class = "col-xs-12 col-lg-6">
+		<div  class = "row">
+			<div class = "col-lg-3">
+				<!-- empty -->
+			</div>
+			<div id = "bigMarquee" class = "col-xs-12 col-lg-6">
 				<div id = "bulbTopRow" class = "row">
 				</div>
+
 				<div id = "bulbMiddleRow" class = "row">
 					<div id = "leftBulb" class="col-xs-1"></div>
-					<div class = "col-xs-10"></div>
+					<div class = "col-xs-10">
+						<div id = "marquee" class = "row">
+							<div class = "col-xs-12">
+								<h1 id = "questionText"> Is this a question?</h1>
+								<div id = "answersHolder">
+									<ul>
+										<li class = "option">Yes</li>
+										<br>
+										<li class = "option">No</li>
+										<br>
+										<li class = "option">There is no way to tell</li>
+										<br>
+										<li class = "option">Nothing is a question</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div id = "rightBulb" class="col-xs-1"></div>	
 				</div>
+
 				<div id = "bulbBottomRow" class = "row">
 				</div>
+
+			</div>
+			<div class = "col-lg-3">
+				<!-- empty -->
 			</div>
 		</div>
 
 		<div class = "row">
-			<div class = "col-lg-3">
-				<!-- empty -->
-			</div>
-			<div id = "marquee" class = "col-xs-12 col-lg-6">
-				<div class = "row">
-					<div class = "col-xs-12">
-						<h1 id = "questionText"> Is this a question?</h1>
-						<div id = "answersHolder">
-							<ul>
-								<li class = "option">Yes</li>
-								<br>
-								<li class = "option">No</li>
-								<br>
-								<li class = "option">There is no way to tell</li>
-								<br>
-								<li class = "option">Nothing is a question</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class = "row">
 			<img id = "buffyPic" src = "assets/images/buffy.png" alt = "">
 			<img id = "quizDemonPic" src="assets/images/quizDemon.png" alt="">
 		</div>
+
 		<div class = "row">
 			<div id = "timer">
 				<img id = "demonPic" class = "timerPic" src="assets/images/henchman.png" alt ="">

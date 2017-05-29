@@ -10,10 +10,10 @@ $(document).ready(function(){
 			setTimeout(moveEnemy, 1000);	
 		} else{
 			//out of time!
-			setTimeout(alert, 10,"buzz!");
+			//setTimeout(alert, 10,"buzz!");
 			setTimeout(changeFriend,11);
 		}
-		
+		myGame.createBulbs();
 	}
 
 	function changeFriend(){
@@ -54,10 +54,21 @@ $(document).ready(function(){
 		}
 
 		this.createBulbs= function(){
-			
+
+			var marqueeHeight = parseInt($("#bigMarquee").css("height"));
+			var singleBulbHeight = parseFloat($(".col-xs-1").css("width"));
+			if (singleBulbHeight> 50){
+				singleBulbHeight = 50;
+			}
+			//var bulbsHeight = parseInt($("#bulbs").css("height"));
+
 			var counter = 0;
-			var bulbCount = Math.floor(parseInt($("#marquee").css("height"))/parseFloat($(".col-xs-1").css("width"))) -2;
-			// var bulbCount = Math.floor(parseInt($("#marquee").css("height"))/50) -1;
+			var bulbCount = Math.floor(marqueeHeight/singleBulbHeight) -2;
+			
+			// if(bulbsHeight - singleBulbHeight < marqueeHeight && marqueeHeight < bulbsHeight + singleBulbHeight){
+			// 	//then I am within 1 bulb of being perfext, so don't adjust.
+			// 	return false
+			// }
 
 			//first, clear out any existing bulbs
 			$("#bulbTopRow").empty();
@@ -97,9 +108,6 @@ $(document).ready(function(){
 				counter++;
 			}
 
-			$("#marquee").css("min-height", (parseFloat($("#leftBulb").css("width"))*(bulbCount+2)) + "px");
-			$("#marquee").css("height", $("#marquee").css("min-height"));
-
 		}
 	}
 
@@ -109,8 +117,8 @@ $(document).ready(function(){
 	var friendArray = ["cordelia","xander","oz","willow","giles"];
 	myGame = new game();
 	myGame.createBulbs();
-	$.mobile.orientationChangeEnabled = false;
-	
+	//setTimeout(moveEnemy, 1000);
+
 
 	$("#friendPic").attr("src","assets/images/" + friendArray[currentFriend] + ".png");
 
@@ -120,7 +128,5 @@ $(document).ready(function(){
 		//start Timer
 		setTimeout(moveEnemy, 1000);
 	});
-	$( window ).on( "orientationchange", function( event ) {
-		myGame.createBulbs();
-	});
+
 })

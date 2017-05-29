@@ -19,6 +19,7 @@ html, body{
 	background: lightblue;
 	z-index: 999;
 	text-align: center;
+
 }
 #intro h1{
 	font-size: 100px;
@@ -49,7 +50,7 @@ html, body{
 
 
 #intro{
-	display:none;
+	display:unset;
 }
 
 #gameContent{
@@ -59,28 +60,22 @@ html, body{
 /*
 /*game elements*/
 
-#marquee{
+#bigMarquee{
 	border: 1px solid black;
 	background: lightpink;
 	height: 100vw;
-	z-index: 1;
-	padding: 8.3333vw;
+	padding: 0;
+}
+.bulb{
+	width:8.33333333vw;
+}
+#bigMarquee .col-xs-1{
+	padding: 0;
+}
+#marquee{
 	overflow: auto;
+	padding: 15px;
 }
-#bulbs{
-	position: absolute;
-	left:0;
-	top: 0;
-	z-index: 2;
-	margin: 0;
-	padding: 0;
-}
-
-#bulbs *{
-	margin: 0;
-	padding: 0;
-}
-
 #marquee h1 {
 	font-size: 24px;
 }
@@ -132,13 +127,13 @@ html, body{
 }
 
 /*landscape phone*/
-@media (max-width: 767px) and (min-width: 640px){
+@media (max-width: 767px) and (min-width: 639px){
 	/*Giles needs to be smaller on the intro screen*/
 	#smallGiles, #smallGiles img{
 		height: 200px;
 	}
 	#marquee{
-		height: 50vw;
+		height: 300px;
 	}
 }
 /*portrait iPad*/
@@ -153,6 +148,11 @@ html, body{
 		display: none;
 	}
 
+	
+	#intro{
+		height: 100vh;
+		width: 100vw;
+	}
 
 	#intro h1{
 		font-size: 50px;
@@ -167,11 +167,11 @@ html, body{
 	#introHolder img{
 		height: 200px;
 	}
-	
 
-	#marquee{
-		border: 1px solid black;
-		background: lightpink;
+	#bigMarquee{
 		height: 50vh;
+	}
+	#gameContent{
+		height: 100vh;
 	}
 }
