@@ -66,7 +66,6 @@ html, body{
 	padding: 0;
 }
 .bulb{
-
 }
 #bigMarquee .col-xs-1{
 	padding: 0;
@@ -85,24 +84,29 @@ html, body{
 	font-size: 16px;
 	line-height: 24px;
 }
+
+#stage{
+	margin-bottom: 17vh;
+	margin-top: 5vh;
+}
 #buffyPic{
-	position: relative;
-	height: 28vh;
-	left:-15vw;
-	padding:1vh 0;
+	height: 20vh;
 }
 #quizDemonPic{
-	position: relative;
-	height: 28vh;
-	right:-15vw;
-	padding:1vh 0;
+	height: 20vh;
+	float:right;
+
 }
 
 #timer{
+	position: fixed;
 	border:1px solid black;
 	background: lightyellow;
-	padding: 1vh;
+	padding: 1vh 0;
 	height: 17vh;
+	bottom: 0;
+	width: 100%;
+	left:0;
 }
 .timerPic{
 	height: 15vh;
@@ -138,6 +142,16 @@ html, body{
 }
 /*portrait iPad*/
 @media (max-width: 1023px) and (min-width: 768px){
+	
+	#marquee li{
+		font-size: 26px;
+	}
+	#marquee h1{
+		font-size: 40px;
+	}
+	#marquee{
+		height: 30vh;
+	}
 }
 /*desktop and lansdcape iPad*/
 @media (min-width: 1023px){
@@ -168,8 +182,27 @@ html, body{
 		height: 200px;
 	}
 
-
 	#gameContent{
 		height: 100vh;
+	}
+	#stage{
+		margin-bottom: 0;
+	}
+	#buffyPic{
+		height: 40vh;
+		bottom: 20vh;
+		position: relative;
+	}
+	#quizDemonPic{
+		height: 40vh;
+		float:right;
+		bottom: 20vh;
+		position: relative;
+
+	}
+
+	#timer{
+		bottom: 0;
+		position: absolute;
 	}
 }
