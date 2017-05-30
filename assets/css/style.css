@@ -85,6 +85,10 @@ html, body{
 	line-height: 24px;
 }
 
+#answerMarquee{
+	display: none;
+}
+
 #stage{
 	margin-bottom: 17vh;
 	margin-top: 5vh;
@@ -189,16 +193,19 @@ html, body{
 		margin-bottom: 0;
 	}
 	#buffyPic{
-		height: 40vh;
+		height: 200px;
 		bottom: 20vh;
 		position: relative;
 	}
 	#quizDemonPic{
-		height: 40vh;
+		height: 200px;
 		float:right;
 		bottom: 20vh;
 		position: relative;
 
+	}
+	#marquee{
+		height: 40vh;
 	}
 
 	#timer{

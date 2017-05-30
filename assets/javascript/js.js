@@ -1,31 +1,14 @@
 var myGame;
+var answerTime;
+var globalTime;
+var veryFirstSetUp;
+var myInterval;
+var myCount;
+veryFirstSetUp = true
+globalTime = 15;
+answerTime = 3;
+myCount = 0;
 $(document).ready(function(){
-
-
-	function moveEnemy(){
-		timeRemaining--;
-		var distance = 85*(globalTime - timeRemaining)/globalTime;
-		$("#demonPic").css("left", distance+"vw");
-		if (timeRemaining > 0){
-			setTimeout(moveEnemy, 1000);	
-		} else{
-			//out of time!
-			//setTimeout(alert, 10,"buzz!");
-			setTimeout(changeFriend,11);
-		}
-		myGame.createBulbs();
-	}
-
-	function changeFriend(){
-		currentFriend ++;
-		if (currentFriend === friendArray.length){
-			return true;
-		}
-		$("#friendPic").attr("src","assets/images/" + friendArray[currentFriend] + ".png");
-		timeRemaining = globalTime
-		$("#demonPic").css("left", "0vw");
-		setTimeout(moveEnemy, 1000);
-	}
 
 
 	//question Object constuctor
@@ -50,18 +33,35 @@ $(document).ready(function(){
 		this.marqueeHeights = [0,0];
 		this.orientation = 0;
 		this.bothOrientSet = false;
-		
+		this.numCorrect = 0;
+		this.currentFriend = 0;
+		this.friendArray = ["cordelia","xander","oz","willow","giles"];
+		this.timeRemaining = globalTime;
+		this.onQuestion = false;
 
+		
 		this.nextQuestion = function(){
 			this.currQuestion ++;
 			var self = this;
+			self.onQuestion = true;
 			$("#questionText").html(self.questions[self.currQuestion].question);
 
 			$(".option").each(function(i){
 				$(this).html(self.questions[self.currQuestion].answers[i]);
 			});
 
+			$("#marquee").show();
+			$("#answerMarquee").hide();
+			
 			myGame.createBulbs();
+		}
+
+		this.showAnswer = function(theAnswer){
+			$("#marquee").toggle();
+			$("#answerMarquee").toggle();
+			//display correct answer
+			$("#correctAnswer").html($(".option").eq(theAnswer).html());
+			//maybe show some kind of image
 		}
 
 		this.setBulbs = function(index){
@@ -91,9 +91,15 @@ $(document).ready(function(){
 
 			var makeTheBulbs = false;
 
-			if (this.bulbCounts[this.oriention]===bulbCount){
+			if (this.bulbCounts[this.orientation]===bulbCount){
 				//do nothing
-				makeTheBulbs = false;
+				if(veryFirstSetUp){
+					makeTheBulbs = true;
+					veryFirstSetUp = false;
+				} else{
+					makeTheBulbs = false;	
+				}
+				
 			} else{
 				if (this.bothOrientSet === false){
 					//set the new oriention
@@ -101,11 +107,11 @@ $(document).ready(function(){
 					this.bothOrientSet = true;
 					makeTheBulbs = true;
 				} else{
-					if(this.oriention === 0){
-						this.oriention = 1;
+					if(this.orientation === 0){
+						this.orientation = 1;
 						makeTheBulbs = true;
 					}else{
-						this.oriention = 0;
+						this.orientation = 0;
 						makeTheBulbs = true;
 					}
 				}
@@ -115,8 +121,8 @@ $(document).ready(function(){
 			if (makeTheBulbs === false){return false;}
 			
 			var counter = 0;
-			bulbCount = this.bulbCounts[this.oriention];
-			$("#marquee").css("height",this.marqueeHeights[this.oriention]+"px");
+			bulbCount = this.bulbCounts[this.orientation];
+			$("#marquee").css("height",this.marqueeHeights[this.orientation]+"px");
 
 			//first, clear out any existing bulbs
 			$("#bulbTopRow").empty();
@@ -157,18 +163,66 @@ $(document).ready(function(){
 			}
 
 		}
+
+		this.moveEnemy = function(){
+			var distance = 85*myCount/globalTime;
+			$("#demonPic").css("left", distance+"vw");
+			myGame.createBulbs();
+		}
+
+		this.changeFriend = function(){
+			this.currentFriend ++;
+			if (this.currentFriend === this.friendArray.length){
+				return true;
+			}
+			$("#friendPic").attr("src","assets/images/" + this.friendArray[this.currentFriend] + ".png");
+
+		}
 	}
 
-	var globalTime = 30;
-	var timeRemaining = globalTime;
-	var currentFriend = 0;
-	var friendArray = ["cordelia","xander","oz","willow","giles"];
+	function timer(stopTime){
+
+		if (myGame.onQuestion){
+			myGame.moveEnemy();	
+		}
+		
+		if(myCount === stopTime){
+			//stop timer
+			clearInterval(myInterval);
+			//show next question
+			//retart long timer
+			var myTime;
+
+			if (stopTime === globalTime){
+				//this means I ran out of time on the question
+				myGame.showAnswer(myGame.questions[myGame.currQuestion].correctIndex);
+				setTimeout(alert,10,myGame.friendArray[myGame.currentFriend]+" was captured! Oh no!");
+				myGame.changeFriend();
+				myTime = answerTime;
+				myGame.onQuestion = false;
+				$("#demonPic").css("left", 85+"vw");
+			} else {
+				//this means the answer sheet is being removed.
+				myGame.nextQuestion();
+				myGame.onQuestion = true;
+				myTime = globalTime;
+			}
+
+			myInterval = setInterval(timer,1000,myTime);
+			myCount = 0;
+			//timer(myTime);
+		} else {
+			myCount++;
+		}
+	}
+
 
 	//orientation holds the current orientation of the device.  either 0 or 1, but there is no specific orientation for the number
 
 	myGame = new game();
+
 	
-	$("#friendPic").attr("src","assets/images/" + friendArray[currentFriend] + ".png");
+	$("#friendPic").attr("src","assets/images/" + myGame.friendArray[myGame.currentFriend] + ".png");
 
 	$("#startGame").on("click",function () {
 		$("#intro").hide();
@@ -176,7 +230,29 @@ $(document).ready(function(){
 		myGame.createBulbs();
 		//load random question
 		//start Timer
-		setTimeout(moveEnemy, 1000);
+		myInterval = setInterval(timer,1000,globalTime);
+		//put up next question
+		myGame.nextQuestion();
+	});
+
+	$(".option").on("click",function() {
+		//check answer
+		var isRight = false;
+		var theAnswer = myGame.questions[myGame.currQuestion].correctIndex;
+		if( $(".option").index($(this)) === theAnswer ){
+			console.log("you got it right");
+			isRight = true;
+		}
+
+		//show answer and start timer
+		myGame.showAnswer(theAnswer);
+
+		if (isRight===true){
+			myGame.numCorrect++;
+		}else{
+			//kill a friend
+			myGame.changeFriend;
+		}
 	});
 
 })
