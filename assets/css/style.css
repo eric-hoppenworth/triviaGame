@@ -44,6 +44,9 @@ html, body{
 #introHolder img{
 	height: 100px;
 }
+.flipMe{
+	transform: scaleX(-1);
+}
 #bigGiles{
 	display: none;
 }
@@ -87,6 +90,14 @@ html, body{
 
 #answerMarquee{
 	display: none;
+	overflow:auto;
+}
+.rotateMe{
+	transform: rotate(90deg);
+}
+
+.answerFriend{
+	height: 100px;
 }
 
 #stage{

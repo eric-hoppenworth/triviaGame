@@ -5,10 +5,11 @@ var veryFirstSetUp;
 var myInterval;
 var myCount;
 var myTimeOuts = [];
-veryFirstSetUp = true
+veryFirstSetUp = true;
 globalTime = 15;
-answerTime = 1;
+answerTime = 4;
 myCount = 0;
+
 function flashAll(duration){
 	//flash all bulbs at a cetain interval
 	//create array to hold the timeOuts
@@ -22,7 +23,9 @@ function changeColorAll(color = 2,end = myGame.bulbs.length){
 
 	if (color < 3){
 		for (var i =0; i< end;i++){
-			myGame.bulbs[i].changeColor(color);
+			if (myGame.bulbs[i].color !== color){
+				myGame.bulbs[i].changeColor(color);
+			}
 		}
 	} else if (color===3){
 		for (var i =0; i< end;i++){
@@ -46,8 +49,9 @@ function roundHouse(duration = 0 ,color = 2,end = myGame.bulbs.length){
 
 }
 
-function roundHouseStack(duration =0 ,color = 2,end = myGame.bulbs.length){
+function roundHouseStack(duration =0 ,color = 0,end = myGame.bulbs.length){
 
+	changeColorAll(color);
 
 	var previousDuration = end*duration
 	roundHouse(duration,color,end);
@@ -60,18 +64,18 @@ function roundHouseStack(duration =0 ,color = 2,end = myGame.bulbs.length){
 		
 	}
 
-
-	console.log(previousDuration);
 	return previousDuration;
 }
 
 function stopBulbs(){
+
 	for (var i =0; i< myTimeOuts.length;i++){
 		clearInterval(myTimeOuts[i]);
 		clearTimeout(myTimeOuts[i]);
 
 	}
 	myTimeOuts = [];
+
 }
 
 function timer(stopTime){
@@ -103,13 +107,8 @@ function timer(stopTime){
 				myCount = 0;
 				myTime = globalTime;
 				myInterval = setInterval(timer,1000,myTime);
-			}
-			
-			
+			}	
 		}
-
-		
-		//timer(myTime);
 	} else {
 		myCount++;
 	}
@@ -190,15 +189,20 @@ $(document).ready(function(){
 			$("#answerMarquee").hide();
 			
 			myGame.createBulbs();
-			roundHouseStack(50,0);
+			stopBulbs();
+			setTimeout(roundHouseStack,100,20,0);
 		}
 
 		this.showAnswer = function(theAnswer){
+			//maybe show some kind of image
+			$(".answerFriend").hide();
+			$("#friendMsg").empty();
+
 			$("#marquee").toggle();
 			$("#answerMarquee").toggle();
 			//display correct answer
 			$("#correctAnswer").html($(".option").eq(theAnswer).html());
-			//maybe show some kind of image
+
 		}
 
 		this.setBulbs = function(index){
@@ -309,7 +313,7 @@ $(document).ready(function(){
 
 		this.changeFriend = function(){
 			this.currentFriend ++;
-			if (this.currentFriend === this.friendArray.length){
+			if (this.currentFriend >= this.friendArray.length){
 				return true;
 			}
 			$("#friendPic").attr("src","assets/images/" + this.friendArray[this.currentFriend] + ".png");
@@ -319,7 +323,7 @@ $(document).ready(function(){
 			//if you got hte question correct,
 			//reset the demon
 			//increase score
-			alert("Looks like you got lucky...");
+			//alert("Looks like you got lucky...");
 			myGame.numCorrect++;
 			$("#demonPic").css("left",0+"vw");
 			myCount = 0;
@@ -327,17 +331,33 @@ $(document).ready(function(){
 			myInterval = setInterval(timer,1000,answerTime);
 			timer(answerTime);
 			myGame.onQuestion = false;
+			stopBulbs();
+			setTimeout(changeColorAll,100,3);
+			setTimeout(flashAll,100,100);
 		}
 		this.gotWrong = function(){
 			//if you got the question wrong, or ran out of time...
-			alert("OOO you got it wrong! Ha!");
+			//alert("OOO you got it wrong! Ha!");
 			$("#demonPic").css("left",0+"vw");
 			myGame.changeFriend();
 			myCount = 0;
 			clearInterval(myInterval)
-			myInterval = setInterval(timer,1000,answerTime);
-			timer(answerTime);
-			myGame.onQuestion = false;
+			if (this.currentFriend >= this.friendArray.length){
+				//this means I have run out of friends and lost the game
+			} else{
+				//restart the timer.
+				myInterval = setInterval(timer,1000,answerTime);
+				timer(answerTime);
+				myGame.onQuestion = false;
+				stopBulbs();
+				setTimeout(changeColorAll,100,0);
+				setTimeout(flashAll,100,200);
+				//put up your dead friend
+				$(".answerFriend").eq(1).attr("src","assets/images/"+this.friendArray[this.currentFriend-1]+".png");
+				$(".answerFriend").show();
+				$("#friendMsg").html(this.friendArray[this.currentFriend-1]+ " has died.");
+			}
+			
 		}
 	}
 
@@ -362,7 +382,6 @@ $(document).ready(function(){
 		var isRight = false;
 		var theAnswer = myGame.questions[myGame.currQuestion].correctIndex;
 		if( $(".option").index($(this)) === theAnswer ){
-			console.log("you got it right");
 			isRight = true;
 		}
 
