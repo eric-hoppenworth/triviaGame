@@ -8,7 +8,7 @@ var libQuestions =[
 	"What is a sure-fire way to stop a pursuant Chinese vampire?",
 	"From which source did the character Blade originate?",
 	"Which of the following is NOT a common trait of a vamipre?",
-	""
+	"What is the last name of the lead Vampire from twilight?"
 	];
 var libAnswers =[
 	["He flies.","He hops like a rabbit.","He cannot move on his own; he must inhabit another's body.","He crawls on all fours."],
@@ -20,7 +20,7 @@ var libAnswers =[
 	["Punch it in the head.","Throw rice on the ground.","Place a bucket of water in its path.","Shout its name."],
 	["The movie 'Blade'.","The X-men comics","Spiderman Comics","The 'Batman' TV show."],
 	["He has no reflection.","Sunlight will hurt him.","He cannot touch a cross.","He is not able to cross running water."],
-	["","","",""]
+	["Dracula","Cullen","Black","Rayne"]
 	];
 
 var libIndecies =[
@@ -33,5 +33,5 @@ var libIndecies =[
 	1,
 	2,
 	3,
-	
+	1
 	];

@@ -4,10 +4,64 @@ var globalTime;
 var veryFirstSetUp;
 var myInterval;
 var myCount;
+var flashIntervals = [];
 veryFirstSetUp = true
 globalTime = 15;
-answerTime = 3;
+answerTime = 1;
 myCount = 0;
+function flashAll(duration){
+	for (var i =0; i< myGame.bulbs.length;i++){
+		flashIntervals[i] = setInterval(myGame.bulbs[i].flash,duration*2,duration);
+	}
+}
+
+function stopBulbs(){
+	for (var i =0; i< myGame.bulbs.length;i++){
+		clearInterval(flashIntervals[i]);
+	}
+}
+
+function timer(stopTime){
+
+	if (myGame.onQuestion){
+		myGame.moveEnemy();	
+	}
+	
+	if(myCount === stopTime){
+		//stop timer
+		clearInterval(myInterval);
+		//show next question
+		//retart long timer
+		var myTime;
+
+		if (stopTime === globalTime){
+			//this means I ran out of time on the question
+			myGame.showAnswer(myGame.questions[myGame.currQuestion].correctIndex);
+			myGame.gotWrong();
+		} else {
+			//this means the answer sheet is being removed.
+
+			if(myGame.currQuestion === myGame.questions.length-1){
+				//I ran out of questions
+				console.log("I ran out of questions")
+			} else{
+				myGame.nextQuestion();
+				myGame.onQuestion = true;
+				myCount = 0;
+				myTime = globalTime;
+				myInterval = setInterval(timer,1000,myTime);
+			}
+			
+			
+		}
+
+		
+		//timer(myTime);
+	} else {
+		myCount++;
+	}
+}
+
 $(document).ready(function(){
 
 
@@ -18,6 +72,35 @@ $(document).ready(function(){
 		this.correctIndex = correctIndex;
 	}
 
+	//bulb object constructor
+	function Bulb(jqObject,color){
+		var self = this;
+		this.jqObject = jqObject;
+		this.color = color;
+
+		this.changeColor = function(myOption){
+			//turns the bulb either white(0), yellow(1), or toggle(2)
+			if(myOption < 2){
+				self.jqObject.attr("src","assets/images/bulb"+myOption+".png");
+				self.color = myOption;
+			
+			}else if(myOption === 2){
+				if (self.color === 0){
+					self.jqObject.attr("src","assets/images/bulb1.png");
+					self.color = 1;
+				} else{
+					self.jqObject.attr("src","assets/images/bulb0.png");
+					self.color = 0;
+				}
+			}
+		}
+
+		this.flash = function(duration){
+			self.changeColor(2);
+			setTimeout(self.changeColor,duration,2);
+		}
+
+	}
 
 	//game object constructor
 	function game() {
@@ -136,14 +219,14 @@ $(document).ready(function(){
 			for (var i = 0 ; i <12;i++){
 				
 				$("#bulbTopRow").append('<div class="col-xs-1"><img id = "bulb'+counter+'" class = "img-responsive bulb" src="assets/images/bulb'+ (counter%2) +'.png"></div>');
-				this.bulbs.push($("#bulb"+counter))
+				this.bulbs.push(new Bulb($("#bulb"+counter),counter%2));
 				counter++;
 			}
 
 			//right bulbs
 			for(var i = 0; i<bulbCount;i++){
 				$("#rightBulb").append('<img id = "bulb'+counter+'" class = "img-responsive bulb" src="assets/images/bulb' + (counter%2) + '.png">');	
-				this.bulbs.push($("#bulb"+counter))
+				this.bulbs.push(new Bulb($("#bulb"+counter),counter%2));
 				counter++;
 			}
 			
@@ -151,14 +234,14 @@ $(document).ready(function(){
 			for (var i = 0 ; i <12;i++){
 				
 				$("#bulbBottomRow").prepend('<div class="col-xs-1"><img id = "bulb'+counter+'" class = "img-responsive bulb" src="assets/images/bulb'+ (counter%2) +'.png"></div>');
-				this.bulbs.push($("#bulb"+counter))
+				this.bulbs.push(new Bulb($("#bulb"+counter),counter%2));
 				counter++;
 			}
 
 			//left bulbs
 			for(var i = 0; i<bulbCount;i++){
 				$("#leftBulb").prepend('<img id = "bulb'+counter+'" class = "img-responsive bulb" src="assets/images/bulb' + (counter%2) + '.png">');	
-				this.bulbs.push($("#bulb"+counter))
+				this.bulbs.push(new Bulb($("#bulb"+counter),counter%2));
 				counter++;
 			}
 
@@ -178,62 +261,46 @@ $(document).ready(function(){
 			$("#friendPic").attr("src","assets/images/" + this.friendArray[this.currentFriend] + ".png");
 
 		}
-	}
-
-	function timer(stopTime){
-
-		if (myGame.onQuestion){
-			myGame.moveEnemy();	
-		}
-		
-		if(myCount === stopTime){
-			//stop timer
-			clearInterval(myInterval);
-			//show next question
-			//retart long timer
-			var myTime;
-
-			if (stopTime === globalTime){
-				//this means I ran out of time on the question
-				myGame.showAnswer(myGame.questions[myGame.currQuestion].correctIndex);
-				setTimeout(alert,10,"You ran out if time. Now I've captured "+myGame.friendArray[myGame.currentFriend]);
-				myGame.changeFriend();
-				myTime = answerTime;
-				myGame.onQuestion = false;
-				$("#demonPic").css("left", 0+"vw");
-			} else {
-				//this means the answer sheet is being removed.
-				myGame.nextQuestion();
-				myGame.onQuestion = true;
-				myTime = globalTime;
-			}
-
-			myInterval = setInterval(timer,1000,myTime);
+		this.gotCorect = function(){
+			//if you got hte question correct,
+			//reset the demon
+			//increase score
+			alert("Looks like you got lucky...");
+			myGame.numCorrect++;
+			$("#demonPic").css("left",0+"vw");
 			myCount = 0;
-			//timer(myTime);
-		} else {
-			myCount++;
+			clearInterval(myInterval);
+			myInterval = setInterval(timer,1000,answerTime);
+			timer(answerTime);
+			myGame.onQuestion = false;
+		}
+		this.gotWrong = function(){
+			//if you got the question wrong, or ran out of time...
+			alert("OOO you got it wrong! Ha!");
+			$("#demonPic").css("left",0+"vw");
+			myGame.changeFriend();
+			myCount = 0;
+			clearInterval(myInterval)
+			myInterval = setInterval(timer,1000,answerTime);
+			timer(answerTime);
+			myGame.onQuestion = false;
 		}
 	}
 
-
-	//orientation holds the current orientation of the device.  either 0 or 1, but there is no specific orientation for the number
-
-	myGame = new game();
-
-	
-	$("#friendPic").attr("src","assets/images/" + myGame.friendArray[myGame.currentFriend] + ".png");
 
 	$("#startGame").on("click",function () {
 		$("#intro").hide();
 		myGame.setBulbs(myGame.orientation);
 		myGame.createBulbs();
+		$("#friendPic").attr("src","assets/images/" + myGame.friendArray[myGame.currentFriend] + ".png");
 		//load random question
+		
+		//put up next question
+		myGame.nextQuestion();
 		//start Timer
 		timer(globalTime);
 		myInterval = setInterval(timer,1000,globalTime);
-		//put up next question
-		myGame.nextQuestion();
+		
 	});
 
 	$(".option").on("click",function() {
@@ -247,17 +314,14 @@ $(document).ready(function(){
 
 		//show answer and start timer
 		myGame.showAnswer(theAnswer);
-		clearInterval(myInterval);
-		myInterval = setInterval(timer,1000,answerTime);
-		//manually run once.
-		timer(answerTime);
 
 		if (isRight===true){
-			myGame.numCorrect++;
+			myGame.gotCorect();
 		}else{
-			//kill a friend
-			myGame.changeFriend;
+			//was wrong
+			myGame.gotWrong();
 		}
 	});
 
+	myGame = new game();
 })
