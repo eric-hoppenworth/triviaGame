@@ -35,7 +35,7 @@ $(document).ready(function(){
 		this.bothOrientSet = false;
 		this.numCorrect = 0;
 		this.currentFriend = 0;
-		this.friendArray = ["cordelia","xander","oz","willow","giles"];
+		this.friendArray = ["Cordelia","Xander","Oz","Willow","Giles"];
 		this.timeRemaining = globalTime;
 		this.onQuestion = false;
 
@@ -196,11 +196,11 @@ $(document).ready(function(){
 			if (stopTime === globalTime){
 				//this means I ran out of time on the question
 				myGame.showAnswer(myGame.questions[myGame.currQuestion].correctIndex);
-				setTimeout(alert,10,myGame.friendArray[myGame.currentFriend]+" was captured! Oh no!");
+				setTimeout(alert,10,"You ran out if time. Now I've captured "+myGame.friendArray[myGame.currentFriend]);
 				myGame.changeFriend();
 				myTime = answerTime;
 				myGame.onQuestion = false;
-				$("#demonPic").css("left", 85+"vw");
+				$("#demonPic").css("left", 0+"vw");
 			} else {
 				//this means the answer sheet is being removed.
 				myGame.nextQuestion();
@@ -230,6 +230,7 @@ $(document).ready(function(){
 		myGame.createBulbs();
 		//load random question
 		//start Timer
+		timer(globalTime);
 		myInterval = setInterval(timer,1000,globalTime);
 		//put up next question
 		myGame.nextQuestion();
@@ -246,6 +247,10 @@ $(document).ready(function(){
 
 		//show answer and start timer
 		myGame.showAnswer(theAnswer);
+		clearInterval(myInterval);
+		myInterval = setInterval(timer,1000,answerTime);
+		//manually run once.
+		timer(answerTime);
 
 		if (isRight===true){
 			myGame.numCorrect++;
