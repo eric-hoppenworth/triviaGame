@@ -101,7 +101,13 @@ function timer(stopTime){
 			if(myGame.currQuestion === myGame.questions.length-1){
 				//I ran out of questions
 				console.log("I ran out of questions")
-			} else{
+				myGame.win();
+			} else if (myGame.currentFriend >= myGame.friendArray.length){
+				//this means I have run out of friends and lost the game
+				//call lose function
+				myGame.lose();
+
+			}else{
 				myGame.nextQuestion();
 				myGame.onQuestion = true;
 				myCount = 0;
@@ -342,22 +348,45 @@ $(document).ready(function(){
 			myGame.changeFriend();
 			myCount = 0;
 			clearInterval(myInterval)
-			if (this.currentFriend >= this.friendArray.length){
-				//this means I have run out of friends and lost the game
-			} else{
-				//restart the timer.
-				myInterval = setInterval(timer,1000,answerTime);
-				timer(answerTime);
-				myGame.onQuestion = false;
-				stopBulbs();
-				setTimeout(changeColorAll,100,0);
-				setTimeout(flashAll,100,200);
-				//put up your dead friend
-				$(".answerFriend").eq(1).attr("src","assets/images/"+this.friendArray[this.currentFriend-1]+".png");
-				$(".answerFriend").show();
-				$("#friendMsg").html(this.friendArray[this.currentFriend-1]+ " has died.");
-			}
 			
+			//restart the timer.
+			myInterval = setInterval(timer,1000,answerTime);
+			timer(answerTime);
+			myGame.onQuestion = false;
+			stopBulbs();
+			setTimeout(changeColorAll,100,0);
+			setTimeout(flashAll,100,200);
+			//put up your dead friend
+			$(".answerFriend").eq(1).attr("src","assets/images/"+this.friendArray[this.currentFriend-1]+".png");
+			$(".answerFriend").show();
+			$("#friendMsg").html(this.friendArray[this.currentFriend-1]+ " has died.");
+			
+		}
+		this.lose = function(){
+			//I lost the game because all of my friends died.
+			$("#friendPic").hide();
+			stopBulbs();
+			setTimeout(changeColorAll,100,1);
+			$("#buffyPic").hide();
+			$("#correctAnswer").html("With all of your firends gone, I've got you now!")
+			$(".answerFriend").eq(1).css("transform","rotate(270deg)")
+			$(".answerFriend").eq(1).attr("src","assets/images/buffy.png");
+			$(".answerFriend").show();
+			$("#friendMsg").html("Buffy has died.");	
+		}
+		this.win = function(){
+			$("#friendPic").hide();
+			$("#buffyPic").hide();
+			$("#quizDemonPic").hide();
+			$("#demonPic").hide();
+			$("#answerMarquee").hide();
+			$("#marquee").hide();
+			for(var i = myGame.currentFriend; i < myGame.friendArray.length;i++){
+				$("#winMarquee").append('<div class = "col-xs-2"><img class = "answerFriend" src="assets/images/'+myGame.friendArray[i]+'.png"></div>');
+			}
+			$("#winMarquee").append('<h1> Great work, Buffy! You defeated the quiz Demon, and you got '+this.numCorrect+' questions correct!')
+			$(".answerFriend").show();
+			$("#winMarquee").show();
 		}
 	}
 

@@ -92,6 +92,13 @@ html, body{
 	display: none;
 	overflow:auto;
 }
+#winMarquee{
+	display: none;
+	overflow: auto;
+}
+#winMarquee h1{
+	clear:both;
+}
 .rotateMe{
 	transform: rotate(90deg);
 }

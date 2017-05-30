@@ -8,7 +8,7 @@ var libQuestions =[
 	"What is a sure-fire way to stop a pursuant Chinese vampire?",
 	"From which source did the character Blade originate?",
 	"Which of the following is NOT a common trait of a vamipre?",
-	"What is the last name of the lead Vampire from twilight?"
+	"What is the last name of the lead Vampire from Twilight?"
 	];
 var libAnswers =[
 	["He flies.","He hops like a rabbit.","He cannot move on his own; he must inhabit another's body.","He crawls on all fours."],
