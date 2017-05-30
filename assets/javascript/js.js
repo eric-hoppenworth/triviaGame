@@ -4,21 +4,74 @@ var globalTime;
 var veryFirstSetUp;
 var myInterval;
 var myCount;
-var flashIntervals = [];
+var myTimeOuts = [];
 veryFirstSetUp = true
 globalTime = 15;
 answerTime = 1;
 myCount = 0;
 function flashAll(duration){
+	//flash all bulbs at a cetain interval
+	//create array to hold the timeOuts
 	for (var i =0; i< myGame.bulbs.length;i++){
-		flashIntervals[i] = setInterval(myGame.bulbs[i].flash,duration*2,duration);
+		myTimeOuts.push(setInterval(myGame.bulbs[i].flash,duration*2,duration));
 	}
 }
 
-function stopBulbs(){
-	for (var i =0; i< myGame.bulbs.length;i++){
-		clearInterval(flashIntervals[i]);
+function changeColorAll(color = 2,end = myGame.bulbs.length){
+	//first turn them all white or yellow
+
+	if (color < 3){
+		for (var i =0; i< end;i++){
+			myGame.bulbs[i].changeColor(color);
+		}
+	} else if (color===3){
+		for (var i =0; i< end;i++){
+			myGame.bulbs[i].changeColor(i%2);
+		}
+	}	
+}
+function roundHouse(duration = 0 ,color = 2,end = myGame.bulbs.length){
+	//cycle all of the bulbs
+	//first turn them all white
+	changeColorAll(color,end);
+	//then flash each one just once, one at a time
+	for (var i =0; i< end;i++){
+		myTimeOuts.push(setTimeout(myGame.bulbs[i].flash,duration*i,duration));
 	}
+	//total duration of this function is:
+	//each bulb has to flash, which takes a total of 'duration'
+	//it will flash 'end' number of bulbs
+	//total time = (end)(duration)
+	return end*duration;
+
+}
+
+function roundHouseStack(duration =0 ,color = 2,end = myGame.bulbs.length){
+
+
+	var previousDuration = end*duration
+	roundHouse(duration,color,end);
+	myTimeOuts.push(setTimeout(myGame.bulbs[myGame.bulbs.length-1].changeColor,previousDuration+10,2));
+
+	for (var i = 1; i< end;i++){
+		myTimeOuts.push(setTimeout(roundHouse,previousDuration,duration,color,end-i));
+		previousDuration += (end-i)*duration;
+		myTimeOuts.push(setTimeout(myGame.bulbs[myGame.bulbs.length-1-i].changeColor,previousDuration+10,2));
+		
+	}
+
+
+	console.log(previousDuration);
+	return previousDuration;
+}
+
+function stopBulbs(){
+	for (var i =0; i< myTimeOuts.length;i++){
+		clearInterval(myTimeOuts[i]);
+		clearTimeout(myTimeOuts[i]);
+
+	}
+	myTimeOuts = [];
 }
 
 function timer(stopTime){
@@ -137,6 +190,7 @@ $(document).ready(function(){
 			$("#answerMarquee").hide();
 			
 			myGame.createBulbs();
+			roundHouseStack(50,0);
 		}
 
 		this.showAnswer = function(theAnswer){
