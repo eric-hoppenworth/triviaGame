@@ -10,6 +10,13 @@ globalTime = 15;
 answerTime = 4;
 myCount = 0;
 
+function checkBackground(){
+	clearInterval(myInterval);
+	$("#bigMarquee").css("opacity","0");
+	
+}
+
+
 function flashAll(duration){
 	//flash all bulbs at a cetain interval
 	//create array to hold the timeOuts

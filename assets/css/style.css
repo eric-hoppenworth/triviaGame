@@ -1,7 +1,12 @@
 html, body{
 	padding: 0;
 	margin: 0;
-	background: lightblue;
+}
+body{
+	background-image: url("../images/backstage.png");
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    background-position: 50% 70%;
 }
 
 .container{
@@ -63,6 +68,9 @@ html, body{
 /*
 /*game elements*/
 
+#gameContent{
+}
+
 #bigMarquee{
 	border: 1px solid black;
 	background: lightpink;
@@ -109,7 +117,7 @@ html, body{
 
 #stage{
 	margin-bottom: 17vh;
-	margin-top: 5vh;
+	margin-top: 10vh;
 }
 #buffyPic{
 	height: 20vh;
@@ -160,10 +168,17 @@ html, body{
 	#marquee{
 		height: 180px;
 	}
-
+	body{
+        background-size: 100% 50%;
+    	background-position: 50% 80%;
+	}
 }
 /*portrait iPad*/
 @media (max-width: 1023px) and (min-width: 768px){
+	body{
+		background-size: 100% 50%;
+		background-position: 50% 70%;
+    }
 	
 	#marquee li{
 		font-size: 26px;
@@ -177,6 +192,11 @@ html, body{
 }
 /*desktop and lansdcape iPad*/
 @media (min-width: 1023px){
+	body{
+	    background-size: 100% 80%;
+	    background-position: 50% 30%;
+	}
+
 	#bigGiles{
 		display: unset;
 	}
