@@ -3,10 +3,12 @@ html, body{
 	margin: 0;
 }
 body{
+	background: #111;
 	background-image: url("../images/backstage.png");
     background-size: 100% 50%;
     background-repeat: no-repeat;
     background-position: 50% 70%;
+
 }
 
 .container{
@@ -193,8 +195,8 @@ body{
 /*desktop and lansdcape iPad*/
 @media (min-width: 1023px){
 	body{
-	    background-size: 100% 80%;
-	    background-position: 50% 30%;
+        background-size: 100% 150%;
+    	background-position: 50% 113%;
 	}
 
 	#bigGiles{
